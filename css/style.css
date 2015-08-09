@@ -1,0 +1,87 @@
+h1{
+  top:300px;
+  left:500px;
+  z-index:1000;
+  color: white;
+  position: absolute;
+}
+
+.info {
+  position:absolute;
+  top:50px;
+  right:0px;
+  transition: left 0.5s, width 0.5s;
+}
+
+.info div {
+   background:rgba(0,0,0,.7);
+   padding:40px;
+   border-radius:3px;
+   height: 100%;
+   color: white;
+   
+   width: 350px;
+
+}
+
+.info li{
+
+  font-size: 20px;
+}
+
+#mapContainer{
+        height: 100%;
+}
+
+#map {
+   position:absolute; 
+   bottom:0; 
+   width:100%; 
+   height: 100%;
+}
+
+
+.menu {
+  background: rgba(0,0,0,1);
+  position:absolute;
+  width:120px;
+  top:50px;
+  left:0px;
+  border-radius:2px;
+}
+.menu .item {
+  display:block;
+  border-bottom:1px solid #eee;
+  padding:10px;
+  text-decoration:none;
+}
+  .menu .item { color:#888; font-size: 16px; color: white;}
+  .menu .item:hover,
+  .menu .item.active { background:#f8f8f8; color: black;}
+  .menu .item:last-child { border-bottom:none; }
+
+.infoRight {
+      padding: 6px 8px;
+      font: 14px/16px Arial, Helvetica, sans-serif;
+      background: white;
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 5px;
+    }
+    .infoRight h4 {
+      margin: 0 0 5px;
+      color: #777;
+    }
+
+    .legend {
+      text-align: left;
+      line-height: 18px;
+      color: #555;
+    }
+    .legend i {
+      width: 50px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+    }

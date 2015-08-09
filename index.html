@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Explore Fifa Corruption</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">    
+    <style type="text/css"></style>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script> 
+    <script src="js/leaflet-providers.js"></script> 
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="js/ajax.js"></script> 
+    <script src="js/label.js"></script> 
+    <script src="data/places.js"></script> 
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-info navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Fifa Corruption Storyline</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Places</a></li>
+            <li><a href="#about">Orgnisations</a></li>
+            <li><a href="#contact">People</a></li>
+            <li><a href="#contact">Events</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+</nav>
+
+
+<div id="mapContainer">
+ 
+ <div id="map">
+     
+
+ </div>
+
+      <h1></h1>
+
+</div>
+
+<div id='info' class='info'></div>
+<div id='menu' class='menu'></div>
+
+    
+
+  <script type="text/javascript">
+  var info = document.getElementById('info');
+
+
+        var map = L.map('map', { zoomControl: false }).setView([47.381604, 8.574487], 3);
+
+    
+        L.tileLayer.provider('Stamen.Toner').addTo(map);
+        
+
+        var myLayer = L.geoJson().addTo(map);
+        myLayer.addData(geoJsonData);
+        
+
+        var continentLayer = new L.geoJson.ajax("data/places.json");       
+        continentLayer.addTo(map);
+
+
+        function getColor(d) {
+    return d > 8000 ? '#800026' :
+           d > 7000 ? '#BD0026' :
+           d > 6000 ? '#E31A1C' :
+           d > 5000 ? '#FC4E2A' :
+           d > 4000 ? '#FD8D3C' :
+           d > 3000 ? '#FEB24C' :
+           d > 2000 ? '#FED976' :
+                      '#FFEDA0';
+}
+
+        function style(feature) {
+        return {
+        fillColor: getColor(feature.properties.mentions),
+        weight: 3,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+L.geoJson.ajax("data/places.json", {style: style}).addTo(map);
+
+
+function highlightFeature(e) {
+            var layer = e.target;
+
+
+            //var countryName = e.target.feature.properties.name;
+            //layer.bindLabel(countryName);
+
+            layer.setStyle({
+                weight: 3,
+                //color: '#2880CA',
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+
+
+
+            if (!L.Browser.ie && !L.Browser.opera) {
+                layer.bringToFront();
+            }
+
+            //info.update(layer.feature.properties);
+            
+        }
+
+
+        var geojson;
+
+        function resetHighlight(e) {
+            geojson.resetStyle(e.target);
+        }
+
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
+        }
+
+
+        function onEachFeature(feature, layer) {
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+
+        geojson = L.geoJson.ajax("data/places.json", {
+            style: style,
+            onEachFeature: onEachFeature
+        }).addTo(map);
+
+
+  
+        // Listen for individual marker clicks.
+        myLayer.on('click',function(e) {
+        // Force the popup closed.
+        e.layer.closePopup();
+
+        var feature = e.layer.feature;
+        var content = '<div><strong>' + feature.properties.title + '</strong>' +
+                  '<p>' + feature.properties.description + '</p></div>';
+
+        info.innerHTML = content;
+        });
+
+        
+        myLayer.on('click',function(e) {
+        // Force the popup closed.
+        e.layer.closePopup();
+
+        var feature = e.layer.feature;
+        var content = '<div><strong>' + feature.properties.title + '</strong>' +
+                  '<p>' + feature.properties.description + '</p></div>';
+
+        var popupContent =  '<a target="_blank" class="popup" href="' + feature.properties.url + '"style="color:black; font-size:20px; font-weight:bold;">' + '<img src="' + feature.properties.image + '" />' + feature.properties.title + '</a>';
+
+        info.innerHTML = content;
+
+        //e.layer.bindPopup(feature.properties.title);
+
+         e.layer.bindPopup(popupContent,{
+         closeButton: true,
+         minWidth: 320
+         });
+
+        e.layer.openPopup();
+
+        map.setView(e.latlng, 5, {animate: true});
+
+        });
+
+  new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
+
+
+
+
+  var menu = document.getElementById('menu');
+
+// Iterate through each feature layer item, build a
+// marker menu item and enable a click event that pans to + opens
+// a marker that's associated to the marker item.
+   myLayer.eachLayer(function(marker) {
+  var link = menu.appendChild(document.createElement('a'));
+  link.className = 'item';
+  link.href = '#';
+
+  // Populate content from each markers object.
+  link.innerHTML = marker.feature.properties.title;
+  link.onclick = function() {
+    if (/active/.test(this.className)) {
+      this.className = this.className.replace(/active/, '').replace(/\s\s*$/, '');
+       
+    } else {
+      var siblings = menu.getElementsByTagName('a');
+      for (var i = 0; i < siblings.length; i++) {
+        siblings[i].className = siblings[i].className
+          .replace(/active/, '').replace(/\s\s*$/, '');
+      };
+      this.className += ' active';
+
+      // When a menu item is clicked, animate the map to center
+      // its associated marker and open its popup.
+
+      map.panTo(marker.getLatLng(),{animate: true});
+     
+      var popupContent =  '<a target="_blank" class="popup" href="' + marker.feature.properties.url + '"style="color:black; font-size:20px; font-weight:bold;">' +'<img src="' + marker.feature.properties.image + '" />' +marker.feature.properties.title + '</a>';
+      //marker.bindPopup(marker.feature.properties.description);
+
+      marker.bindPopup(popupContent,{
+         closeButton: false,
+         minWidth: 320
+         });
+
+      marker.openPopup();
+
+    }
+    return false;
+  };
+});
+
+   var infoRight = L.control();
+
+
+var legend = L.control({position: 'bottomright'});
+
+        legend.onAdd = function (map) {
+
+            var div = L.DomUtil.create('div', 'infoRight legend'),
+                grades = [1000,2000,3000,4000,5000,6000,7000,8000],
+                labels = [],
+                from, to;
+
+            for (var i = 0; i < grades.length; i++) {
+                from = grades[i];
+                to = grades[i + 1];
+
+                labels.push(
+                    '<i style="background:' + getColor(from + 1) + '"></i> ' +
+                    from + (to ? '&ndash;' + to : '+'));
+            }
+
+            div.innerHTML = labels.join('<br>');
+            return div;
+        };
+
+        legend.addTo(map);
+
+        map.attributionControl.setPrefix("");
+  </script>
+
+  <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
