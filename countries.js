@@ -16,6 +16,12 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
   
   }
 
+  var coordinate = {};
+  fs.readFile('data/coordinate.json','utf8', function (err, data) {
+        if (err) throw err;
+        coordinate=JSON.parse(data);
+  });
+
   Q.all(promises)
   .then(function(countries) {
     console.log("All requsts done");
@@ -26,6 +32,31 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
 
     var top10Countries = countries.slice(0,10);
 
+
+    for (i = 0; i < top10Countries.length; i++) { 
+        var countryName=top10Countries[i].properties.name;
+
+        console.log(countryName);
+
+        function getLatLon (country) {
+          console.log('finding coord for ' + country);
+          var result = {};
+          for (j = 0; j < coordinate.length; j++) {
+            if (coordinate[j].SHORT_NAME == country) {
+                //console.log ('lat for ' + coordinate[j].SHORT_NAME + ' is ' + coordinate[j].LAT + coordinate[j].LONG);
+                result.lat = coordinate[j].LAT;
+                result.lon = coordinate[j].LONG;
+            }
+          }
+
+          return result;
+        }
+
+        var latlon = getLatLon(countryName);
+        console.log ('coordinate for ' + countryName + ' is ' + latlon);
+    } 
+
+
     var newWorldMap = {};
     newWorldMap.type = 'FeatureCollection';
     newWorldMap.features = top10Countries;
@@ -35,9 +66,12 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
         if (err) {
          return console.log(err);
         }
-      console.log("The file was saved!");
-    }); 
+        console.log("The file was saved!");
+      }); 
 
+  }).fail(function (err){
+    console.log(err);
+    return Q.reject(err);
   });
 
 });

@@ -11,7 +11,6 @@
     <script src="js/leaflet-providers.js"></script> 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="js/ajax.js"></script> 
-    <script src="js/label.js"></script> 
     <script src="data/places.js"></script> 
 </head>
 
@@ -71,20 +70,20 @@
         myLayer.addData(geoJsonData);
         
 
-        var continentLayer = new L.geoJson.ajax("data/places.json");       
-        continentLayer.addTo(map);
+        var countryLayer = new L.geoJson.ajax("data/countryMentions.json");       
+        countryLayer.addTo(map);
 
 
         function getColor(d) {
-    return d > 8000 ? '#800026' :
-           d > 7000 ? '#BD0026' :
-           d > 6000 ? '#E31A1C' :
-           d > 5000 ? '#FC4E2A' :
-           d > 4000 ? '#FD8D3C' :
-           d > 3000 ? '#FEB24C' :
-           d > 2000 ? '#FED976' :
-                      '#FFEDA0';
-}
+        return d > 2200 ? '#800026' :
+               d > 2000 ? '#BD0026' :
+               d > 1800 ? '#E31A1C' :
+               d > 1600 ? '#FC4E2A' :
+               d > 1400 ? '#FD8D3C' :
+               d > 1200 ? '#FEB24C' :
+               d > 1000 ? '#FED976' :
+                          '#FFEDA0';
+        }
 
         function style(feature) {
         return {
@@ -97,7 +96,7 @@
     };
 }
 
-L.geoJson.ajax("data/places.json", {style: style}).addTo(map);
+L.geoJson.ajax("data/countryMentions.json", {style: style}).addTo(map);
 
 
 function highlightFeature(e) {
@@ -145,7 +144,7 @@ function highlightFeature(e) {
             });
         }
 
-        geojson = L.geoJson.ajax("data/places.json", {
+        geojson = L.geoJson.ajax("data/countryMentions.json", {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map);
@@ -247,7 +246,7 @@ var legend = L.control({position: 'bottomright'});
         legend.onAdd = function (map) {
 
             var div = L.DomUtil.create('div', 'infoRight legend'),
-                grades = [1000,2000,3000,4000,5000,6000,7000,8000],
+                grades = [1000,1200,1400,1600,1800,2000,2200,2400],
                 labels = [],
                 from, to;
 
