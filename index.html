@@ -11,7 +11,9 @@
     <script src="js/leaflet-providers.js"></script> 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="js/ajax.js"></script> 
-    <script src="data/places.js"></script> 
+    <script src="data/placesGenerated.js"></script> 
+    <script src="js/jquery.quick.pagination.min.js"></script>
+
 </head>
 
 <body>
@@ -47,7 +49,9 @@
 
  </div>
 
-      <h1></h1>
+      <h1>
+        
+      </h1>
 
 </div>
 
@@ -148,21 +152,6 @@ function highlightFeature(e) {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map);
-
-
-  
-        // Listen for individual marker clicks.
-        myLayer.on('click',function(e) {
-        // Force the popup closed.
-        e.layer.closePopup();
-
-        var feature = e.layer.feature;
-        var content = '<div><strong>' + feature.properties.title + '</strong>' +
-                  '<p>' + feature.properties.description + '</p></div>';
-
-        info.innerHTML = content;
-        });
-
         
         myLayer.on('click',function(e) {
         // Force the popup closed.
@@ -172,7 +161,7 @@ function highlightFeature(e) {
         var content = '<div><strong>' + feature.properties.title + '</strong>' +
                   '<p>' + feature.properties.description + '</p></div>';
 
-        var popupContent =  '<a target="_blank" class="popup" href="' + feature.properties.url + '"style="color:black; font-size:20px; font-weight:bold;">' + '<img src="' + feature.properties.image + '" />' + feature.properties.title + '</a>';
+        var popupContent =  '<h2>' + feature.properties.title + '</h2>';
 
         info.innerHTML = content;
 
@@ -180,18 +169,16 @@ function highlightFeature(e) {
 
          e.layer.bindPopup(popupContent,{
          closeButton: true,
-         minWidth: 320
+         minWidth: 150
          });
 
         e.layer.openPopup();
 
         map.setView(e.latlng, 5, {animate: true});
 
+        $("ul.pagination1").quickPagination({pageSize:"5"});
+
         });
-
-  new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
-
-
 
 
   var menu = document.getElementById('menu');
@@ -223,12 +210,14 @@ function highlightFeature(e) {
 
       map.panTo(marker.getLatLng(),{animate: true});
      
-      var popupContent =  '<a target="_blank" class="popup" href="' + marker.feature.properties.url + '"style="color:black; font-size:20px; font-weight:bold;">' +'<img src="' + marker.feature.properties.image + '" />' +marker.feature.properties.title + '</a>';
+      /*var popupContent =  '<a target="_blank" class="popup" href="' + marker.feature.properties.url + '"style="color:black; font-size:20px; font-weight:bold;">' +'<img src="' + marker.feature.properties.image + '" />' +marker.feature.properties.title + '</a>';*/
       //marker.bindPopup(marker.feature.properties.description);
+
+      var popupContent = '<h2>' + marker.feature.properties.title + '</h2>';
 
       marker.bindPopup(popupContent,{
          closeButton: false,
-         minWidth: 320
+         minWidth: 150
          });
 
       marker.openPopup();
@@ -241,7 +230,7 @@ function highlightFeature(e) {
    var infoRight = L.control();
 
 
-var legend = L.control({position: 'bottomright'});
+var legend = L.control({position: 'bottomleft'});
 
         legend.onAdd = function (map) {
 
@@ -266,6 +255,8 @@ var legend = L.control({position: 'bottomright'});
         legend.addTo(map);
 
         map.attributionControl.setPrefix("");
+        new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
+
   </script>
 
   <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
