@@ -1,0 +1,17 @@
+{
+  "name": "fifa-crisis",
+  "version": "1.0.0",
+  "description": "a web app that queries BBC News Labs Juicer to show the coverage about fifa corruption",
+  "main": "countries.js",
+  "dependencies": {
+    "request": "^2.60.0",
+    "q": "^1.4.1",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Lei He"
+}
