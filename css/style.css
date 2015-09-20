@@ -8,7 +8,7 @@ h1{
 
 .info {
   position:absolute;
-  top:50px;
+  top:70px;
   right:0px;
   transition: left 0.5s, width 0.5s;
 }
@@ -38,7 +38,7 @@ h1{
   background: rgba(0,0,0,1);
   position:absolute;
   width:120px;
-  top:50px;
+  top:70px;
   left:0px;
   border-radius:2px;
 }
@@ -151,4 +151,9 @@ table.pageme td {
 
 .simplePagerNav{
   margin-left: -85px;
+}
+
+footer {
+  margin-bottom: 0px;
+  z-index: 99999;
 }
