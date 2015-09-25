@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="css/popModal.css">
     <style type="text/css"></style>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script> 
     <script src="js/leaflet-providers.js"></script> 
@@ -14,6 +15,19 @@
     <script src="js/ajax.js"></script> 
     <script src="data/placesGenerated.js"></script> 
     <script src="js/jquery.quick.pagination.min.js"></script>
+    <style>
+      h3{
+          top:80%;
+          left:10%;
+          z-index:1000;
+          color: rgb(48,134,204);
+          position: absolute;
+      }
+      .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+          color: #fff;
+          background-color: #222222;
+      }
+    </style>
 
 </head>
 
@@ -29,15 +43,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Fifa Corruption Crisis</a>
+          <a class="navbar-brand" href="index.html">Fifa Corruption Crisis</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <p class="navbar-text" style="color:white; font-size:30px;padding-left:75px;">Explore by clicking a marker below</p>           
+            <p class="navbar-text" style="color:white; font-size:30px;padding-left:75px;">Explore by clicking a marker below <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span></p>           
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">About this project</a></li>
+            <li><a href="about.html">About this project</a></li>
             <li class="active"><a href="http://bbcnewslabs.co.uk/"><img src="img/bbclogo.png" alt=""></a></li>
             <li class="active"><a href="https://twitter.com/BBC_News_Labs"><i class="fa fa-twitter-square" style="font-size:30px"></i></a></li>
             <li class="active"><a href="http://bbcnewslabs.co.uk/feed.xml"><i class="fa fa-rss-square" style="font-size:30px"></i></a></li>
@@ -51,23 +65,29 @@
 <div id="mapContainer">
  
  <div id="map">
-     
-
+      <h3></h2>
  </div>
 
-      <h1></h1>
+
 
  </div>
-
 
 
 <div id='info' class='info'></div>
 <div id='menu' class='menu'></div>
 
+<div style="display:none">
+    <div id="content" >
+
+        <p>This map shows how many times a country has been mentioned in the news coverage about Fifa corruption. The number of mentions is represented by different colors. The more the mentions, the darker the color. The data comes from BBC News Labs Juicer.</p>
+
+    </div>
+</div>
+
 
     
   <script type="text/javascript">
-  var info = document.getElementById('info');
+        var info = document.getElementById('info');
 
 
         var map = L.map('map', { zoomControl: false }).setView([47.381604, 8.574487], 3);
@@ -80,31 +100,31 @@
         myLayer.addData(geoJsonData);
         
 
-        var countryLayer = new L.geoJson.ajax("data/countryMentions.json");       
-        countryLayer.addTo(map);
+       /* var countryLayer = new L.geoJson.ajax("data/countryMentions.json");       
+        countryLayer.addTo(map);*/
 
 
         function getColor(d) {
-        return d > 2200 ? '#800026' :
-               d > 2000 ? '#BD0026' :
-               d > 1800 ? '#E31A1C' :
-               d > 1600 ? '#FC4E2A' :
-               d > 1400 ? '#FD8D3C' :
-               d > 1200 ? '#FEB24C' :
-               d > 1000 ? '#FED976' :
-                          '#FFEDA0';
+          return d > 2200 ? '#800026' :
+                 d > 2000 ? '#BD0026' :
+                 d > 1800 ? '#E31A1C' :
+                 d > 1600 ? '#FC4E2A' :
+                 d > 1400 ? '#FD8D3C' :
+                 d > 1200 ? '#FEB24C' :
+                 d > 1000 ? '#FED976' :
+                            '#FFEDA0';
         }
 
         function style(feature) {
-        return {
-        fillColor: getColor(feature.properties.mentions),
-        weight: 3,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
-    };
-}
+          return {
+          fillColor: getColor(feature.properties.mentions),
+          weight: 3,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.7
+          };
+        }
 
 L.geoJson.ajax("data/countryMentions.json", {style: style}).addTo(map);
 
@@ -124,7 +144,13 @@ function highlightFeature(e) {
                 fillOpacity: 0.7
             });
 
+              context = new AudioContext;
 
+              oscillator = context.createOscillator();
+              oscillator.frequency.value = e.target.feature.properties.mentions;
+              oscillator.connect(context.destination);
+              oscillator.start(0);
+              oscillator.stop(0.5);
 
             if (!L.Browser.ie && !L.Browser.opera) {
                 layer.bringToFront();
@@ -132,7 +158,7 @@ function highlightFeature(e) {
 
             //info.update(layer.feature.properties);
             
-        }
+}
 
 
         var geojson;
@@ -163,9 +189,10 @@ function highlightFeature(e) {
         // Force the popup closed.
         e.layer.closePopup();
 
+
         var feature = e.layer.feature;
-        var content = '<div><strong>' + feature.properties.title + '</strong>' +
-                  '<p>' + feature.properties.description + '</p></div>';
+        var content = '<div><h1>' + feature.properties.title + '</h1>' +
+                  '<h2>' + feature.properties.description + '</h2></div>';
 
         var popupContent =  '<h2>' + feature.properties.title + '</h2>';
 
@@ -241,7 +268,7 @@ var legend = L.control({position: 'bottomleft'});
         legend.onAdd = function (map) {
 
             var div = L.DomUtil.create('div', 'infoRight legend'),
-                grades = [1000,1200,1400,1600,1800,2000,2200,2400],
+                grades = [800,1000,1200,1400,1600,1800,2000,2200],
                 labels = [],
                 from, to;
 
@@ -266,7 +293,26 @@ var legend = L.control({position: 'bottomleft'});
   </script>
 
   <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-      <footer>jfkdlsj</footer>
+  <script src="js/popModal.min.js"></script>
+
+  <script type="text/javascript">
+      $(function(){
+
+          $('#popModal_ex1').click(function(){
+              $('#popModal_ex1').popModal({
+                  html : $('#content'),
+                  placement : 'bottomLeft',
+                  showCloseBut : true,
+                  onDocumentClickClose : true,
+                  onOkBut : function(){},
+                  onCancelBut : function(){},
+                  onLoad : function(){},
+                  onClose : function(){}
+              });
+          });
+          
+      });
+  </script>
 
 
 </body>

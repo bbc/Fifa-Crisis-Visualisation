@@ -62,7 +62,7 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
         var lat = latlon.lat;
         var lon = latlon.lon;
 
-        var descriptionHtml = 'News Headlines: <ul class="pagination1">';
+        var descriptionHtml = 'Fifa Corruption News Headlines: <ul class="pagination1">';
         
         for (var k = 0; k < articles.length; k++){
           descriptionHtml += '<li><a href="'+articles[k].url+'">'+articles[k].title+'</a><p>Source: '+articles[k].source+'</p><p>Publish time: '+articles[k].time+'</p></li>'
