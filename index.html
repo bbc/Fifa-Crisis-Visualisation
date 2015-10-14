@@ -144,13 +144,13 @@ function highlightFeature(e) {
                 fillOpacity: 0.7
             });
 
-              context = new AudioContext;
+              /*context = new AudioContext;
 
               oscillator = context.createOscillator();
               oscillator.frequency.value = e.target.feature.properties.mentions;
               oscillator.connect(context.destination);
               oscillator.start(0);
-              oscillator.stop(0.5);
+              oscillator.stop(0.5);*/
 
             if (!L.Browser.ie && !L.Browser.opera) {
                 layer.bringToFront();
