@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Explore Fifa Corruption</title>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="http://bootstrap.bbcnewslabs.co.uk/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="css/popModal.css">
     <style type="text/css"></style>
@@ -27,40 +28,78 @@
           color: #fff;
           background-color: #222222;
       }
+
+      .navbar-default .navbar-brand {
+          font-size: 28px;
+      }
+
+      body {
+          padding: 0;
+          margin: 0;
+      }
+      html, body, #map {
+          height: 100%;
+      }
     </style>
 
 </head>
 
 <body>
 
+<!-- <div class="navbar navbar-inverse navbar-static-top no-margin">
+  <div class="container">
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".header-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+         Fifa Corruption top 10 countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span>
+       </a>
+    </div>
+    <div class="collapse navbar-collapse header-collapse">
+       
+      <p class="navbar-btn navbar-right"><a href="https://github.com/BBC-News-Labs/bbcnewslabs-bootstrap" target="_blank" class="btn btn-primary navbar-link"><i class="fa fa-lg fa-github"></i> GitHub</a></p>
+      <p class="navbar-btn navbar-right" style="margin-right: 5px;"><a href="http://twitter.com/BBC_News_Labs" target="_blank" class="btn btn-primary navbar-link"><i class="fa fa-lg fa-twitter"></i> @BBC_News_Labs</a></p>
+    </div>
+  </div>
+</div> -->
 
-<nav class="navbar navbar-inverse navbar-info navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Fifa Corruption Crisis</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <p class="navbar-text" style="color:white; font-size:30px;padding-left:75px;">Fifa Corruption top 10 countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span></p>           
-          </ul>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="about.html">About this project</a></li>
-            <li class="active"><a href="http://bbcnewslabs.co.uk/"><img src="img/bbclogo.png" alt=""></a></li>
-            <li class="active"><a href="https://twitter.com/BBC_News_Labs"><i class="fa fa-twitter-square" style="font-size:30px"></i></a></li>
-            <li class="active"><a href="http://bbcnewslabs.co.uk/feed.xml"><i class="fa fa-rss-square" style="font-size:30px"></i></a></li>
 
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-</nav>
 
+<!-- <nav class="navbar navbar-inverse navbar-info navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <p class="navbar-brand" href="index.html">Fifa Corruption top 10 countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span></p>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="http://bbcnewslabs.co.uk/"><img src="img/bbclogo.png" alt=""></a></li>
+        <li class="active"><a href="https://twitter.com/BBC_News_Labs"><i class="fa fa-twitter-square" style="font-size:30px"></i></a></li>
+        <li class="active"><a href="http://bbcnewslabs.co.uk/feed.xml"><i class="fa fa-rss-square" style="font-size:30px"></i></a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<img src="http://static.bbcnewslabs.co.uk/logo.png" class="logo" alt="BBC News Labs">
+
+<div id="banner">
+  <h2 class="title">Fifa Corruption - Top 10 Countries</h2>
+  <p class="ticker"><a href="http://www.bbc.co.uk/partnersandsuppliers/connectedstudio/newslabs/projects/juicer.html">Global news headlines from the BBC News Labs Juicer</a></p>
+</div>
 
 <div id="mapContainer">
  

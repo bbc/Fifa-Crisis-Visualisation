@@ -33,7 +33,7 @@
   background: rgba(0,0,0,1);
   position:absolute;
   width:120px;
-  top:70px;
+  top:120px;
   left:0px;
   border-radius:2px;
 }
@@ -153,5 +153,60 @@ footer {
   z-index: 99999;
 }
 
+
+img.logo {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    width: 80px;
+    z-index: 1001;
+}
+
+
+#banner {
+    height: 89px;
+    font-size: 18px;
+    line-height: 22px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-right: 300px;
+    padding: 0px;
+    padding-left: 120px;
+    background-color: #000000;
+    z-index: 1000;
+}
+
+#banner .title {
+    left: 120px;
+    margin: 8px 0;
+    color: #fff;
+}
+
+#banner .ticker {
+    height: 60px;
+    overflow: hidden;
+    padding: 20px;
+    margin: 0;
+    float: left;
+    clear: both;
+    font-weight: 600;
+    background-color: #fff;
+    color: #000;
+    width: 100%;
+    position: absolute;
+    top: 40;
+    left: 0;
+    padding-left: 120px;
+}
+
+.ticker a {
+  color: #000000;
+}
+
+.ticker a:hover {
+  color: #000000;
+}
 
 

@@ -65,7 +65,7 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
         var descriptionHtml = 'Fifa Corruption News Headlines: <ul class="pagination1">';
         
         for (var k = 0; k < articles.length; k++){
-          descriptionHtml += '<li><a href="'+articles[k].url+'">'+articles[k].title+'</a><p>Source: '+articles[k].source+'</p><p>Publish time: '+articles[k].time+'</p></li>'
+          descriptionHtml += '<li><a href="'+articles[k].url+'">'+articles[k].title+'</a><p>Source: '+articles[k].source+'</p><p>Publish time: '+articles[k].time+'</p></li>';
         }
 
         descriptionHtml += '</ul>';
@@ -80,7 +80,7 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
               "title": country,
               "description": descriptionHtml 
           }
-        }
+        };
 
         placesArray.push(placesObj);
     } 
@@ -114,7 +114,7 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
   function makeRequest(country, query) {
     var deferred  = Q.defer();
     var lineNumber = i;
-    var juicer= "http://data.test.bbc.co.uk/bbcrd-juicer/articles?q="+query+"&recent_first=yes&size=40&apikey=9OHbOpZpVh9tQZBDjwTlTmsCF2Ce0yGQ";
+    var juicer= "http://juicer.api.bbci.co.uk/articles?q="+query+"&published_after=1900-01-01T00:00:00.000Z&size=40&recent_first=yes&api_key=yrbiyyGvQTVQjUAaiQj9nxFxDCIllPPS";
     request(juicer, function (error, response, body) {
       country.properties.mentions = 0;
       if (!error && response.statusCode == 200) {
@@ -133,7 +133,7 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
         }
 
         juicerObj.hits;
-        console.log (juicerObj.hits.length)
+        console.log (juicerObj.hits.length);
         console.log(query);
 
       }
