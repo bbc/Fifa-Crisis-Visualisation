@@ -4,7 +4,7 @@ var Q = require('q');
 var placesArray = [];
 
 console.log('hello world');
-fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
+fs.readFile('worldMapOriginal.json','utf8', function (err, data) {
   if (err) throw err;
   var jsonObj=JSON.parse(data);
 
@@ -18,7 +18,7 @@ fs.readFile('data/worldMapOriginal.json','utf8', function (err, data) {
   }
 
   var coordinate = {};
-  fs.readFile('data/coordinate.json','utf8', function (err, data) {
+  fs.readFile('coordinate.json','utf8', function (err, data) {
         if (err) throw err;
         coordinate=JSON.parse(data);
   });
