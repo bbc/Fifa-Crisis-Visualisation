@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Explore Fifa Corruption</title>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="http://bootstrap.bbcnewslabs.co.uk/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="css/popModal.css">
-    <style type="text/css"></style>
+    <link rel="stylesheet" href="css/style.css" />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script> 
     <script src="js/leaflet-providers.js"></script> 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -97,34 +96,26 @@
 <img src="http://static.bbcnewslabs.co.uk/logo.png" class="logo" alt="BBC News Labs">
 
 <div id="banner">
-  <h2 class="title">Fifa Corruption - Top 10 Countries</h2>
-  <p class="ticker"><a href="http://www.bbc.co.uk/partnersandsuppliers/connectedstudio/newslabs/projects/juicer.html">Global news headlines from the BBC News Labs Juicer</a></p>
+  <h2 class="title">Fifa Corruption - Top 10 Countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span></h2>
+  <p class="ticker"><a href="http://bbcnewslabs.co.uk/projects/juicer">Global news headlines of Fifa Corruption from the BBC News Labs Juicer</a></p>
 </div>
 
 <div id="mapContainer">
- 
- <div id="map">
-      <h3></h2>
- </div>
+  <div id="map"></div>
+  <div id='info' class='info'></div>
+  <div id='menu' class='menu'></div>
+</div>
 
 
 
- </div>
-
-
-<div id='info' class='info'></div>
-<div id='menu' class='menu'></div>
 
 <div style="display:none">
     <div id="content" >
 
-        <p>This map shows how many times a country has been mentioned in the news coverage about Fifa corruption. The number of mentions is represented by different colors. The more the mentions, the darker the color. The data comes from BBC News Labs Juicer.</p>
+        <p>This map shows how many times a country has been mentioned in the global news coverage about Fifa corruption. The number of mentions is represented by different colors. The more the mentions, the darker the color. The data comes from BBC News Labs Juicer.</p>
 
     </div>
-</div>
-
-
-    
+</div>    
   <script type="text/javascript">
         var info = document.getElementById('info');
 
@@ -230,8 +221,8 @@ function highlightFeature(e) {
 
 
         var feature = e.layer.feature;
-        var content = '<div><h1>' + feature.properties.title + '</h1>' +
-                  '<h2>' + feature.properties.description + '</h2></div>';
+        var content = '<div><h2 class="h2sidebarTitle">' + feature.properties.title + '</h2>' +
+                  '<h2 class="h2sidebarDesc">' + feature.properties.description + '</h2></div>';
 
         var popupContent =  '<h2>' + feature.properties.title + '</h2>';
 
@@ -248,7 +239,7 @@ function highlightFeature(e) {
 
         map.setView(e.latlng, 5, {animate: true});
 
-        $("ul.pagination1").quickPagination({pageSize:"4"});
+        $("ul.pagination1").quickPagination({pageSize:"5"});
 
         });
 
