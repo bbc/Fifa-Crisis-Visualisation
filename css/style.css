@@ -6,23 +6,62 @@ html {
   position:absolute;
   top:70px;
   right:0px;
-  transition: left 0.5s, width 0.5s;
   overflow: hidden;
   height: 100%;
 }
 
 .info div {
-   background:rgba(0,0,0,1);
-   padding-top: 20px;
-   padding-right: 20px;
-   padding-bottom: 20px;
-   padding-left: 20px;
-   border-radius:3px;
-   height: 100%;
-   color: white;
-   width: 350px;
-   overflow: hidden;
-   height: 100%;
+    background:rgba(0,0,0,1);
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    border-radius:3px;
+    height: 100%;
+    color: white;
+    width: 350px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.info div h2{
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+
+@keyframes fadein {
+    from {
+        opacity:0.1;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0.1;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0.1;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0.1;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #mapContainer{
@@ -36,8 +75,6 @@ html {
    height: 100%;
    overflow: hidden;
 }
-
-
 .menu {
   background: rgba(0,0,0,1);
   position:absolute;
@@ -88,7 +125,7 @@ font-size: 36px;
 }
 
 ul.pagination1 {
-  margin-left: -70px;
+    margin-left: -70px;
 }
 
 /*ul.pagination1 li:hover{
@@ -106,6 +143,10 @@ ul.pagination1 li{
   margin-bottom: 1px;
   list-style:none;
   border-bottom:1px solid #eee;
+  animation: fadein 2s;
+  -moz-animation: fadein 2s; /* Firefox */
+  -webkit-animation: fadein 2s; /* Safari and Chrome */
+  -o-animation: fadein 2s; /* Opera */
 }
 
 ul.pagination1 p{

@@ -16,132 +16,67 @@
     <script src="data/placesGenerated.js"></script> 
     <script src="js/jquery.quick.pagination.min.js"></script>
     <script>
-      $( document ).ready(function() {      
-        var isMobile = window.matchMedia("only screen and (max-width: 760px)");
-
-          if (isMobile.matches) {
-              window.location = "./mobile.html";
-          }
-      });
+        $( document ).ready(function() {      
+            var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+            if (isMobile.matches) {
+                window.location = "./mobile.html";
+            }
+        });
     </script>
     <style>
-      h3{
-          top:80%;
-          left:10%;
-          z-index:1000;
-          color: rgb(48,134,204);
-          position: absolute;
-      }
-      .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
-          color: #fff;
-          background-color: #222222;
-      }
+        h3{
+            top:80%;
+            left:10%;
+            z-index:1000;
+            color: rgb(48,134,204);
+            position: absolute;
+        }
+        .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+            color: #fff;
+            background-color: #222222;
+        }
 
-      .navbar-default .navbar-brand {
-          font-size: 28px;
-      }
-
-      body {
-          padding: 0;
-          margin: 0;
-      }
-      html, body, #map {
-          height: 100%;
-      }
+        .navbar-default .navbar-brand {
+            font-size: 28px;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+        }
     </style>
-
 </head>
 
 <body>
 
-<!-- <div class="navbar navbar-inverse navbar-static-top no-margin">
-  <div class="container">
-    
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".header-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">
-         Fifa Corruption top 10 countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span>
-       </a>
+    <img src="http://static.bbcnewslabs.co.uk/logo.png" class="logo" alt="BBC News Labs">
+
+    <div id="banner">
+        <h2 class="title">Fifa Corruption - Top 10 Countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span></h2>
+        <p class="ticker"><a href="http://bbcnewslabs.co.uk/projects/juicer">Global news headlines of Fifa Corruption from the BBC News Labs Juicer</a></p>
     </div>
-    <div class="collapse navbar-collapse header-collapse">
-       
-      <p class="navbar-btn navbar-right"><a href="https://github.com/BBC-News-Labs/bbcnewslabs-bootstrap" target="_blank" class="btn btn-primary navbar-link"><i class="fa fa-lg fa-github"></i> GitHub</a></p>
-      <p class="navbar-btn navbar-right" style="margin-right: 5px;"><a href="http://twitter.com/BBC_News_Labs" target="_blank" class="btn btn-primary navbar-link"><i class="fa fa-lg fa-twitter"></i> @BBC_News_Labs</a></p>
+
+    <div id="mapContainer">
+        <div id="map"></div>
+        <div id='info' class='info'></div>
+        <div id='menu' class='menu'></div>
     </div>
-  </div>
-</div> -->
 
-
-
-
-<!-- <nav class="navbar navbar-inverse navbar-info navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <p class="navbar-brand" href="index.html">Fifa Corruption top 10 countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span></p>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="http://bbcnewslabs.co.uk/"><img src="img/bbclogo.png" alt=""></a></li>
-        <li class="active"><a href="https://twitter.com/BBC_News_Labs"><i class="fa fa-twitter-square" style="font-size:30px"></i></a></li>
-        <li class="active"><a href="http://bbcnewslabs.co.uk/feed.xml"><i class="fa fa-rss-square" style="font-size:30px"></i></a></li>
-
-      </ul>
-    </div>
-  </div>
-</nav> -->
-
-<img src="http://static.bbcnewslabs.co.uk/logo.png" class="logo" alt="BBC News Labs">
-
-<div id="banner">
-  <h2 class="title">Fifa Corruption - Top 10 Countries <span id="popModal_ex1" class="highlight"><i class="fa fa-question-circle"></i></span></h2>
-  <p class="ticker"><a href="http://bbcnewslabs.co.uk/projects/juicer">Global news headlines of Fifa Corruption from the BBC News Labs Juicer</a></p>
-</div>
-
-<div id="mapContainer">
-  <div id="map"></div>
-  <div id='info' class='info'></div>
-  <div id='menu' class='menu'></div>
-</div>
-
-
-
-
-<div style="display:none">
-    <div id="content" >
-
-        <p>This map shows how many times a country has been mentioned in the global news coverage about Fifa corruption. The number of mentions is represented by different colors. The more the mentions, the darker the color. The data comes from BBC News Labs Juicer.</p>
-
-    </div>
-</div>    
-  <script type="text/javascript">
-        var info = document.getElementById('info');
-
+    <div style="display:none">
+        <div id="content" >
+            <p>This map shows how many times a country has been mentioned in the global news coverage about Fifa corruption. The number of mentions is represented by different colors. The more the mentions, the darker the color. The data comes from BBC News Labs Juicer.</p>
+        </div>
+    </div>    
+    <script type="text/javascript">
 
         var map = L.map('map', { zoomControl: false }).setView([47.381604, 8.574487], 3);
 
-    
         L.tileLayer.provider('Stamen.Toner').addTo(map);
         
-
         var myLayer = L.geoJson().addTo(map);
         myLayer.addData(geoJsonData);
-        
-
-       /* var countryLayer = new L.geoJson.ajax("data/countryMentions.json");       
-        countryLayer.addTo(map);*/
-
 
         function getColor(d) {
           return d > 2200 ? '#800026' :
@@ -155,50 +90,33 @@
         }
 
         function style(feature) {
-          return {
-          fillColor: getColor(feature.properties.mentions),
-          weight: 3,
-          opacity: 1,
-          color: 'white',
-          dashArray: '3',
-          fillOpacity: 0.7
-          };
+            return {
+                fillColor: getColor(feature.properties.mentions),
+                weight: 3,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.7
+            };
         }
 
-L.geoJson.ajax("data/countryMentions.json", {style: style}).addTo(map);
+        L.geoJson.ajax("data/countryMentions.json", {style: style}).addTo(map);
 
 
-function highlightFeature(e) {
+        function highlightFeature(e) {
             var layer = e.target;
-
-
-            //var countryName = e.target.feature.properties.name;
-            //layer.bindLabel(countryName);
 
             layer.setStyle({
                 weight: 3,
-                //color: '#2880CA',
                 color: '#666',
                 dashArray: '',
                 fillOpacity: 0.7
             });
 
-              /*context = new AudioContext;
-
-              oscillator = context.createOscillator();
-              oscillator.frequency.value = e.target.feature.properties.mentions;
-              oscillator.connect(context.destination);
-              oscillator.start(0);
-              oscillator.stop(0.5);*/
-
             if (!L.Browser.ie && !L.Browser.opera) {
                 layer.bringToFront();
-            }
-
-            //info.update(layer.feature.properties);
-            
-}
-
+            }           
+        }
 
         var geojson;
 
@@ -209,7 +127,6 @@ function highlightFeature(e) {
         function zoomToFeature(e) {
             map.fitBounds(e.target.getBounds());
         }
-
 
         function onEachFeature(feature, layer) {
             layer.on({
@@ -223,86 +140,84 @@ function highlightFeature(e) {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map);
-        
+
         myLayer.on('click',function(e) {
-        // Force the popup closed.
-        e.layer.closePopup();
+            // Force the popup closed.
+            e.layer.closePopup();
 
+            var feature = e.layer.feature;
+            var content = '<div><h2 class="h2sidebarTitle">' + feature.properties.title + '</h2>' +
+                      '<h2 class="h2sidebarDesc">' + feature.properties.description + '</h2></div>';
 
-        var feature = e.layer.feature;
-        var content = '<div><h2 class="h2sidebarTitle">' + feature.properties.title + '</h2>' +
-                  '<h2 class="h2sidebarDesc">' + feature.properties.description + '</h2></div>';
+            var popupContent =  '<h2>' + feature.properties.title + '</h2>';
+            var info = document.getElementById('info');
 
-        var popupContent =  '<h2>' + feature.properties.title + '</h2>';
+            info.innerHTML = content;
 
-        info.innerHTML = content;
+            e.layer.bindPopup(popupContent,{
+                closeButton: true,
+                minWidth: 150
+            });
 
-        //e.layer.bindPopup(feature.properties.title);
+            e.layer.openPopup();
 
-         e.layer.bindPopup(popupContent,{
-         closeButton: true,
-         minWidth: 150
-         });
+            map.setView(e.latlng, 5, {animate: true});
 
-        e.layer.openPopup();
-
-        map.setView(e.latlng, 5, {animate: true});
-
-        $("ul.pagination1").quickPagination({pageSize:"5"});
+            $("ul.pagination1").quickPagination({pageSize:"5"});
 
         });
 
 
-  var menu = document.getElementById('menu');
+        var menu = document.getElementById('menu');
 
-// Iterate through each feature layer item, build a
-// marker menu item and enable a click event that pans to + opens
-// a marker that's associated to the marker item.
-   myLayer.eachLayer(function(marker) {
-  var link = menu.appendChild(document.createElement('a'));
-  link.className = 'item';
-  link.href = '#';
+        // Iterate through each feature layer item, build a
+        // marker menu item and enable a click event that pans to + opens
+        // a marker that's associated to the marker item.
+        myLayer.eachLayer(function(marker) {
+            console.log(marker);
+            var link = menu.appendChild(document.createElement('a'));
+            link.className = 'item';
+            link.href = '#';
 
-  // Populate content from each markers object.
-  link.innerHTML = marker.feature.properties.title;
-  link.onclick = function() {
-    if (/active/.test(this.className)) {
-      this.className = this.className.replace(/active/, '').replace(/\s\s*$/, '');
-       
-    } else {
-      var siblings = menu.getElementsByTagName('a');
-      for (var i = 0; i < siblings.length; i++) {
-        siblings[i].className = siblings[i].className
-          .replace(/active/, '').replace(/\s\s*$/, '');
-      };
-      this.className += ' active';
+            // Populate content from each markers object.
+            link.innerHTML = marker.feature.properties.title;
+            link.onclick = function() {
+                if (/active/.test(this.className)) {
+                    this.className = this.className.replace(/active/, '').replace(/\s\s*$/, ''); 
+                } else {
+                    var siblings = menu.getElementsByTagName('a');
+                    for (var i = 0; i < siblings.length; i++) {
+                        siblings[i].className = siblings[i].className.replace(/active/, '').replace(/\s\s*$/, '');
+                    }
+                    this.className += ' active';
 
-      // When a menu item is clicked, animate the map to center
-      // its associated marker and open its popup.
+                    // When a menu item is clicked, animate the map to center
+                    // its associated marker and open its popup.
 
-      map.panTo(marker.getLatLng(),{animate: true});
-     
-      /*var popupContent =  '<a target="_blank" class="popup" href="' + marker.feature.properties.url + '"style="color:black; font-size:20px; font-weight:bold;">' +'<img src="' + marker.feature.properties.image + '" />' +marker.feature.properties.title + '</a>';*/
-      //marker.bindPopup(marker.feature.properties.description);
+                    map.panTo(marker.getLatLng(),{animate: true});
+                    var popupContent = '<h2>' + marker.feature.properties.title + '</h2>';
 
-      var popupContent = '<h2>' + marker.feature.properties.title + '</h2>';
+                    marker.bindPopup(popupContent,{
+                        closeButton: false,
+                        minWidth: 150
+                    });
 
-      marker.bindPopup(popupContent,{
-         closeButton: false,
-         minWidth: 150
-         });
+                    var content = '<div><h2 class="h2sidebarTitle">' + marker.feature.properties.title + '</h2>' +
+                      '<h2 class="h2sidebarDesc">' + marker.feature.properties.description + '</h2></div>';
+                    var info = document.getElementById('info');
+                    info.innerHTML = content;
 
-      marker.openPopup();
+                    marker.openPopup();
 
-    }
-    return false;
-  };
-});
+                    $("ul.pagination1").quickPagination({pageSize:"5"});
+                }
+                return false;
+            };
+        });
 
-   var infoRight = L.control();
+        var infoRight = L.control();
 
-
-var legend = L.control({position: 'bottomleft'});
+        var legend = L.control({position: 'bottomleft'});
 
         legend.onAdd = function (map) {
 
@@ -328,31 +243,26 @@ var legend = L.control({position: 'bottomleft'});
 
         map.attributionControl.setPrefix("");
         new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
+    </script>
 
-  </script>
+    <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="js/popModal.min.js"></script>
 
-  <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-  <script src="js/popModal.min.js"></script>
-
-  <script type="text/javascript">
-      $(function(){
-
-          $('#popModal_ex1').click(function(){
-              $('#popModal_ex1').popModal({
-                  html : $('#content'),
-                  placement : 'bottomLeft',
-                  showCloseBut : true,
-                  onDocumentClickClose : true,
-                  onOkBut : function(){},
-                  onCancelBut : function(){},
-                  onLoad : function(){},
-                  onClose : function(){}
-              });
-          });
-          
-      });
-  </script>
-
-
+    <script type="text/javascript">
+        $(function(){
+            $('#popModal_ex1').click(function(){
+                $('#popModal_ex1').popModal({
+                    html : $('#content'),
+                    placement : 'bottomLeft',
+                    showCloseBut : true,
+                    onDocumentClickClose : true,
+                    onOkBut : function(){},
+                    onCancelBut : function(){},
+                    onLoad : function(){},
+                    onClose : function(){}
+                });
+            });
+        });
+    </script>
 </body>
 </html>
