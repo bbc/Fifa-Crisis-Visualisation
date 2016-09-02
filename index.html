@@ -15,6 +15,15 @@
     <script src="js/ajax.js"></script> 
     <script src="data/placesGenerated.js"></script> 
     <script src="js/jquery.quick.pagination.min.js"></script>
+    <script>
+      $( document ).ready(function() {      
+        var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+
+          if (isMobile.matches) {
+              window.location = "./mobile.html";
+          }
+      });
+    </script>
     <style>
       h3{
           top:80%;
