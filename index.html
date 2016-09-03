@@ -6,6 +6,7 @@
     <title>Explore Fifa Corruption</title>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
     <link rel="stylesheet" href="http://bootstrap.bbcnewslabs.co.uk/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/L.Control.Sidebar.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="css/popModal.css">
     <link rel="stylesheet" href="css/style.css" />
@@ -15,14 +16,7 @@
     <script src="js/ajax.js"></script> 
     <script src="data/placesGenerated.js"></script> 
     <script src="js/jquery.quick.pagination.min.js"></script>
-    <script>
-        $( document ).ready(function() {      
-            var isMobile = window.matchMedia("only screen and (max-width: 760px)");
-            if (isMobile.matches) {
-                window.location = "./mobile.html";
-            }
-        });
-    </script>
+    <script src="js/L.Control.Sidebar.js"></script>
     <style>
         h3{
             top:80%;
@@ -60,14 +54,20 @@
 
     <div id="mapContainer">
         <div id="map"></div>
-        <div id='info' class='info'></div>
-        <div id='menu' class='menu'></div>
+        <div id='menu' class='desktopMenu'></div>
+        <div id='menu2' class="mobileMenu">
+          <button>Toggle</button>
+          <div></div>
+        </div>
     </div>
 
     <div style="display:none">
         <div id="content" >
             <p>This map shows how many times a country has been mentioned in the global news coverage about Fifa corruption. The number of mentions is represented by different colors. The more the mentions, the darker the color. The data comes from BBC News Labs Juicer.</p>
         </div>
+    </div>
+    <div id="sidebar">
+            
     </div>    
     <script type="text/javascript">
 
@@ -150,9 +150,11 @@
                       '<h2 class="h2sidebarDesc">' + feature.properties.description + '</h2></div>';
 
             var popupContent =  '<h2>' + feature.properties.title + '</h2>';
-            var info = document.getElementById('info');
+            //var info = document.getElementById('info');
+            //info.innerHTML = content;
 
-            info.innerHTML = content;
+            var sidebar2 = document.getElementById('sidebar');
+            sidebar2.innerHTML = content;
 
             e.layer.bindPopup(popupContent,{
                 closeButton: true,
@@ -163,12 +165,27 @@
 
             map.setView(e.latlng, 5, {animate: true});
 
-            $("ul.pagination1").quickPagination({pageSize:"5"});
+            $( document ).ready(function() {      
+                var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+                if (isMobile.matches) {
+                    $("ul.pagination1").quickPagination({pageSize:"4"});
+                } else {
+                    $("ul.pagination1").quickPagination({pageSize:"6"});
+                }
+            });
+
+
+            sidebar.show();
 
         });
 
 
         var menu = document.getElementById('menu');
+        var menu2 = document.getElementById('menu2').getElementsByTagName('div')[0];
+
+        console.log(menu);
+
+        console.log(menu2);
 
         // Iterate through each feature layer item, build a
         // marker menu item and enable a click event that pans to + opens
@@ -176,11 +193,16 @@
         myLayer.eachLayer(function(marker) {
             console.log(marker);
             var link = menu.appendChild(document.createElement('a'));
+            var link2 = menu2.appendChild(document.createElement('a'));
             link.className = 'item';
             link.href = '#';
 
+            link2.className = 'item';
+            link2.href = '#';
+
             // Populate content from each markers object.
             link.innerHTML = marker.feature.properties.title;
+            link2.innerHTML = marker.feature.properties.title;
             link.onclick = function() {
                 if (/active/.test(this.className)) {
                     this.className = this.className.replace(/active/, '').replace(/\s\s*$/, ''); 
@@ -204,12 +226,74 @@
 
                     var content = '<div><h2 class="h2sidebarTitle">' + marker.feature.properties.title + '</h2>' +
                       '<h2 class="h2sidebarDesc">' + marker.feature.properties.description + '</h2></div>';
-                    var info = document.getElementById('info');
-                    info.innerHTML = content;
+                    //var info = document.getElementById('info');
+                    //info.innerHTML = content;
+
+                    var sidebar2 = document.getElementById('sidebar');
+                    sidebar2.innerHTML = content;
 
                     marker.openPopup();
 
-                    $("ul.pagination1").quickPagination({pageSize:"5"});
+                    $( document ).ready(function() {      
+                        var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+                        if (isMobile.matches) {
+                            $("ul.pagination1").quickPagination({pageSize:"4"});
+                        } else {
+                            $("ul.pagination1").quickPagination({pageSize:"6"});
+                        }
+                    });
+
+                    sidebar.show();
+                }
+                return false;
+            };
+            link2.onclick = function() {
+                if (/active/.test(this.className)) {
+                    this.className = this.className.replace(/active/, '').replace(/\s\s*$/, ''); 
+                } else {
+                    var siblings2 = menu2.getElementsByTagName('a');
+                    for (var i = 0; i < siblings2.length; i++) {
+                        siblings2[i].className = siblings2[i].className.replace(/active/, '').replace(/\s\s*$/, '');
+                    }
+                    this.className += ' active';
+
+                    // When a menu item is clicked, animate the map to center
+                    // its associated marker and open its popup.
+
+                    map.panTo(marker.getLatLng(),{animate: true});
+                    var popupContent = '<h2>' + marker.feature.properties.title + '</h2>';
+
+                    $(".mobileMenu div").slideToggle();
+
+                    $('.mobileMenu button').toggleClass('expanded');
+
+                    //(".mobileMenu button").slideToggle();
+
+                    marker.bindPopup(popupContent,{
+                        closeButton: false,
+                        minWidth: 150
+                    });
+
+                    var content = '<div><h2 class="h2sidebarTitle">' + marker.feature.properties.title + '</h2>' +
+                      '<h2 class="h2sidebarDesc">' + marker.feature.properties.description + '</h2></div>';
+                    //var info = document.getElementById('info');
+                    //info.innerHTML = content;
+
+                    var sidebar2 = document.getElementById('sidebar');
+                    sidebar2.innerHTML = content;
+
+                    marker.openPopup();
+
+                    $( document ).ready(function() {      
+                        var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+                        if (isMobile.matches) {
+                            $("ul.pagination1").quickPagination({pageSize:"4"});
+                        } else {
+                            $("ul.pagination1").quickPagination({pageSize:"6"});
+                        }
+                    });
+
+                    sidebar.show();
                 }
                 return false;
             };
@@ -239,10 +323,20 @@
             return div;
         };
 
+        //sidebar
+        var sidebar = L.control.sidebar('sidebar', {
+            closeButton: true,
+            position: 'right'
+        });
+        map.addControl(sidebar);
+        //legend
         legend.addTo(map);
 
         map.attributionControl.setPrefix("");
         new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
+        $('button').click(function() {
+            $(this).toggleClass('expanded').siblings('div').slideToggle();
+        });
     </script>
 
     <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
