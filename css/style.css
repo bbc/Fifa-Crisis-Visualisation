@@ -433,7 +433,7 @@ p {
         padding-top: -5px !important;
     }
     ul.pagination1 li {
-        width: 376px;
+        width: auto;
     }
     .mobileMenu {
         display: block;

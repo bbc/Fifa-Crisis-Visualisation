@@ -15,8 +15,9 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="js/ajax.js"></script> 
     <script src="data/placesGenerated.js"></script> 
-    <script src="js/jquery.quick.pagination.min.js"></script>
+    <script src="js/jquery.quick.pagination.js"></script>
     <script src="js/L.Control.Sidebar.js"></script>
+    <script src="js/hammer.min.js"></script>
     <style>
         h3{
             top:80%;
@@ -56,7 +57,7 @@
         <div id="map"></div>
         <div id='menu' class='desktopMenu'></div>
         <div id='menu2' class="mobileMenu">
-          <button>Toggle</button>
+          <button></button>
           <div></div>
         </div>
     </div>
@@ -165,14 +166,29 @@
 
             map.setView(e.latlng, 5, {animate: true});
 
-            $( document ).ready(function() {      
                 var isMobile = window.matchMedia("only screen and (max-width: 760px)");
                 if (isMobile.matches) {
-                    $("ul.pagination1").quickPagination({pageSize:"4"});
+
+                    $("ul.pagination1").quickPager({pageSize:"4"});
+
+                    /*var pageNumber = document.getElementsByClassName(".pagination1");
+                    var myHammer = new Hammer();
+                    myHammer(pageNumber).on("swipeLeft", function() {
+                        console.log("this works!")
+                        $("ul.pagination1").quickPagination({pageSize:"4"});
+                    });*/
+
                 } else {
-                    $("ul.pagination1").quickPagination({pageSize:"6"});
+
+                                        $("ul.pagination1").quickPager({pageSize:"6"});
+
+                    /*var pageNumber = document.getElementsByClassName(".pagination1");
+                    var myHammer = new Hammer();
+                    myHammer(pageNumber).on("swipeLeft", function() {
+                        console.log("this works!")
+                        $("ul.pagination1").quickPagination({pageSize:"4"});
+                    });*/
                 }
-            });
 
 
             sidebar.show();
@@ -237,9 +253,9 @@
                     $( document ).ready(function() {      
                         var isMobile = window.matchMedia("only screen and (max-width: 760px)");
                         if (isMobile.matches) {
-                            $("ul.pagination1").quickPagination({pageSize:"4"});
+                            $("ul.pagination1").quickPager({pageSize:"4"});
                         } else {
-                            $("ul.pagination1").quickPagination({pageSize:"6"});
+                            $("ul.pagination1").quickPager({pageSize:"6"});
                         }
                     });
 
@@ -287,9 +303,9 @@
                     $( document ).ready(function() {      
                         var isMobile = window.matchMedia("only screen and (max-width: 760px)");
                         if (isMobile.matches) {
-                            $("ul.pagination1").quickPagination({pageSize:"4"});
+                            $("ul.pagination1").quickPager({pageSize:"4"});
                         } else {
-                            $("ul.pagination1").quickPagination({pageSize:"6"});
+                            $("ul.pagination1").quickPager({pageSize:"6"});
                         }
                     });
 
